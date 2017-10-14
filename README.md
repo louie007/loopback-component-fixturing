@@ -116,6 +116,28 @@ User:
      `@group1` represents the reference for the group1 and can be used in other fixtures
      `@group.*` represents the reference for a **random** matching group
 
+ - References Array :
+ 
+    ``` yaml
+     User:
+       user1:
+         name: "Steve"
+       user2:
+         name: "Tom"
+
+     Car:
+       car1:
+         name: "Porsche"
+       car2:
+         name: "Volvo"
+     
+     Ownership:
+       steve:
+         ownership: "[@user1, @car1]"
+       tom:
+         ownership: "[@user2, @car2]"
+     ```
+
  - Fakers :
 
     ``` yaml
