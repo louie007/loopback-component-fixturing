@@ -1,4 +1,4 @@
-# loopback-fixtures
+# loopback-component-fixturing
 
 Expressive fixtures generator for Loopback
 
@@ -141,6 +141,7 @@ User:
 
 ## Credits
 [Samy Ghribi](https://github.com/sghribi)
+[Louie Bao](https://github.com/louie007)
 
 ## License
 

@@ -53,10 +53,27 @@ module.exports =
 
   replaceReferenceInObjects: (object) ->
     new Promise (resolve, reject) =>
-
+      objRegex = new RegExp(/^@[\w\d\s@,]+$/g)
+      arrayRegex = new RegExp(/^\[(@[\w\d\s@,]+)\]$/g)
       _.each object, (value, key) =>
-        if _.values(value)?[0] == '@'
-          identifier = value.substring 1
+        valueStr = value.toString()
+        if valueStr != null && valueStr.match(arrayRegex)
+          vstr = valueStr.substring(1, valueStr.length - 1)
+          refArray = vstr.split(',')
+          referencedObjectArray = []
+          i = 0
+          while i < refArray.length
+            ref = refArray[i]
+            i++
+            identifier = ref.trim().substring(1)
+            referencedObject = @getRandomMatchingObject "^"+identifier+"$"
+            if referencedObject?[idKey]
+              referencedObjectArray.push(referencedObject[idKey])
+            else
+              reject '[ERROR] Please provide object for @' + identifier
+          return object[key] = referencedObjectArray
+        else if valueStr != null && valueStr.match(objRegex)
+          identifier = value.substring(1)
           referencedObject = @getRandomMatchingObject "^"+identifier+"$"
 
           if referencedObject?[idKey]

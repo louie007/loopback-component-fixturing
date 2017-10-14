@@ -1,5 +1,5 @@
 {
-  "name": "loopback-fixtures",
+  "name": "loopback-component-fixturing",
   "description": "Expressive fixtures generator for Loopback",
   "version": "0.0.11",
   "dependencies": {
@@ -25,7 +25,7 @@
     "registry": "http://registry.npmjs.org"
   },
   "main": "lib/index.js",
-  "author": "Samy Ghribi <ghribi.samy@gmail.com>",
+  "author": "Samy Ghribi <ghribi.samy@gmail.com> & Louie Bao <louie.bao@icloud.com>",
   "license": "ISC",
   "devDependencies": {
     "chai": "^3.5.0",
@@ -43,6 +43,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:sghribi/loopback-fixtures.git"
+    "url": "git@github.com:louie007/loopback-component-fixturing.git"
   }
 }
