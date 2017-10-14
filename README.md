@@ -162,8 +162,8 @@ User:
 
 
 ## Credits
-[Samy Ghribi](https://github.com/sghribi)
-[Louie Bao](https://github.com/louie007)
+- [Samy Ghribi](https://github.com/sghribi)
+- [Louie Bao](https://github.com/louie007)
 
 ## License
 
