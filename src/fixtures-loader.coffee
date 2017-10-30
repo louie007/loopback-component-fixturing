@@ -53,11 +53,13 @@ module.exports =
 
   replaceReferenceInObjects: (object) ->
     new Promise (resolve, reject) =>
-      objRegex = new RegExp(/^@[\w\d\s@,]+$/g)
-      arrayRegex = new RegExp(/^\[(@[\w\d\s@,]+)\]$/g)
+      objIdRegex = new RegExp(/^@[^@]{1}[\w\d\s@,]+$/g)
+      objIdArrayRegex = new RegExp(/^\[(@[^@]{1}[\w\d\s@,]+)\]$/g)
+      objectRegex = new RegExp(/^@@[\w\d\s@,]+$/g)
+      objArrayRegex = new RegExp(/^\[(@@[\w\d\s@,]+)\]$/g)
       _.each object, (value, key) =>
         valueStr = value.toString()
-        if valueStr != null && valueStr.match(arrayRegex)
+        if valueStr != null && valueStr.match(objIdArrayRegex)
           vstr = valueStr.substring(1, valueStr.length - 1)
           refArray = vstr.split(',')
           referencedObjectArray = []
@@ -72,7 +74,7 @@ module.exports =
             else
               reject '[ERROR] Please provide object for @' + identifier
           return object[key] = referencedObjectArray
-        else if valueStr != null && valueStr.match(objRegex)
+        else if valueStr != null && valueStr.match(objIdRegex)
           identifier = value.substring(1)
           referencedObject = @getRandomMatchingObject "^"+identifier+"$"
 
@@ -80,6 +82,30 @@ module.exports =
             object[key] = referencedObject[idKey]
           else
             reject '[ERROR] Please provide object for @' + identifier
+        else if valueStr != null && valueStr.match(objArrayRegex)
+          vstr = valueStr.substring(1, valueStr.length - 1)
+          refArray = vstr.split(',')
+          referencedObjectArray = []
+          i = 0
+          while i < refArray.length
+            ref = refArray[i]
+            i++
+            identifier = ref.trim().substring(2)
+            referencedObject = @getRandomMatchingObject "^"+identifier+"$"
+            if referencedObject != null
+              referencedObjectArray.push(referencedObject)
+            else
+              reject '[ERROR] Please provide object for @@' + identifier
+          return object[key] = referencedObjectArray
+
+        else if valueStr != null && valueStr.match(objIdRegex)
+          identifier = value.substring(2)
+          referencedObject = @getRandomMatchingObject "^"+identifier+"$"
+
+          if referencedObject != null
+            object[key] = referencedObject
+          else
+            reject '[ERROR] Please provide object for @@' + identifier
 
       resolve object
 
