@@ -98,7 +98,7 @@ module.exports =
               reject '[ERROR] Please provide object for @@' + identifier
           return object[key] = referencedObjectArray
 
-        else if valueStr != null && valueStr.match(objIdRegex)
+        else if valueStr != null && valueStr.match(objectRegex)
           identifier = value.substring(2)
           referencedObject = @getRandomMatchingObject "^"+identifier+"$"
 
